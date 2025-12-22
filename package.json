@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Nick Liffen's personal blog - static site generator",
   "main": "scripts/build.js",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "build": "node scripts/build.js",
     "build:dev": "NODE_ENV=development node scripts/build.js",

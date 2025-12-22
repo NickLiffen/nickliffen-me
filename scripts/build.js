@@ -4,6 +4,15 @@ const path = require('path');
 const matter = require('gray-matter');
 const { glob } = require('glob');
 const { mkdirp } = require('mkdirp');
+const { marked } = require('marked');
+
+// Configure marked for safe HTML output
+marked.setOptions({
+  gfm: true,
+  breaks: false,
+  headerIds: true,
+  mangle: false
+});
 
 // Configuration
 const SITE_URL = 'https://nickliffen.dev';
@@ -63,9 +72,12 @@ async function getArticles() {
     const content = fs.readFileSync(file, 'utf-8');
     const { data, content: body } = matter(content);
     
+    // Convert markdown to HTML
+    const htmlContent = marked(body.trim());
+    
     return {
       ...data,
-      content: body.trim(),
+      content: htmlContent,
       formattedDate: formatDate(data.date),
       canonicalUrl: `${SITE_URL}/articles/${data.slug}.html`,
       datePublished: data.date,
@@ -234,6 +246,157 @@ ${items}
   console.log('Generated: rss.xml');
 }
 
+// Generate manifest.webmanifest with dynamic shortcuts for articles
+async function generateManifest(articles) {
+  // Take latest 6 articles for shortcuts (PWA limit is typically 4-10)
+  const shortcuts = articles.slice(0, 6).map(a => {
+    // Extract the core title (remove "Nick Liffen's Blog | " prefix and " | Blog Post" suffix if present)
+    let shortName = a.title
+      .replace(/^Nick Liffen's Blog \| /, '')
+      .replace(/ \| Blog Post$/, '');
+    
+    // Truncate if too long
+    if (shortName.length > 40) {
+      shortName = shortName.substring(0, 37) + '...';
+    }
+    
+    return {
+      name: a.title, // Use full title as-is
+      url: `/articles/${a.slug}.html`,
+      short_name: shortName
+    };
+  });
+
+  const manifest = {
+    short_name: "Nick Liffen's Blog",
+    name: "Nick Liffen's Blog | Technology, DevOps and Developer Blog",
+    icons: [
+      {
+        src: "icon.png",
+        type: "image/png",
+        sizes: "192x192",
+        purpose: "any maskable"
+      },
+      {
+        src: "tile.png",
+        type: "image/png",
+        sizes: "512x512",
+        purpose: "any maskable"
+      }
+    ],
+    start_url: "./",
+    scope: ".",
+    background_color: "#fafafa",
+    theme_color: "#fafafa",
+    display: "standalone",
+    categories: ["education", "security"],
+    description: "Nick Liffen's Blog | Focusing on DevOps, Developer Experience and all aspects of Technology",
+    dir: "auto",
+    lang: "en-GB",
+    shortcuts: [
+      {
+        name: "Nick Liffen's Blog | Technology, DevOps and Developer Blog",
+        url: "/",
+        short_name: "Blog Home Page"
+      },
+      ...shortcuts
+    ]
+  };
+
+  fs.writeFileSync(
+    path.join(DIST_DIR, 'manifest.webmanifest'),
+    JSON.stringify(manifest, null, 2)
+  );
+  console.log('Generated: manifest.webmanifest');
+}
+
+// Generate sw.js with dynamic cache list based on articles
+async function generateServiceWorker(articles) {
+  // Calculate version based on build timestamp (ensures cache invalidation on new builds)
+  const version = Date.now().toString(36);
+  
+  // Calculate total pagination pages
+  const paginatedArticles = articles.slice(ARTICLES_PER_INDEX);
+  const totalPages = Math.ceil(paginatedArticles.length / ARTICLES_PER_PAGE);
+  const paginationPages = Array.from({ length: totalPages }, (_, i) => `/articles/page/${i + 2}.html`);
+
+  const cacheUrls = [
+    '/',
+    '/sw.js',
+    '/index.html',
+    '/404.html',
+    '/css/hyde.css',
+    '/css/poole.css',
+    ...articles.map(a => `/articles/${a.slug}.html`),
+    ...paginationPages
+  ];
+
+  const sw = `var VERSION = '${version}';
+
+this.addEventListener('install', function(e) {
+  e.waitUntil(caches.open(VERSION).then(cache => {
+    return cache.addAll([
+${cacheUrls.map(url => `      '${url}'`).join(',\n')}
+    ]);
+  }))
+});
+
+this.addEventListener('fetch', function(e) {
+  // Skip non-GET requests
+  if (e.request.method !== 'GET') return;
+  
+  // Skip requests with different modes that can cause redirect issues
+  if (e.request.mode === 'navigate') {
+    e.respondWith(
+      fetch(e.request).catch(() => caches.match('/index.html'))
+    );
+    return;
+  }
+
+  var tryInCachesFirst = caches.open(VERSION).then(cache => {
+    return cache.match(e.request).then(response => {
+      if (!response) {
+        return handleNoCacheMatch(e);
+      }
+      fetchFromNetworkAndCache(e);
+      return response
+    });
+  });
+  e.respondWith(tryInCachesFirst);
+});
+
+this.addEventListener('activate', function(e) {
+  e.waitUntil(caches.keys().then(keys => {
+    return Promise.all(keys.map(key => {
+      if (key !== VERSION)
+        return caches.delete(key);
+    }));
+  }));
+});
+
+function fetchFromNetworkAndCache(e) {
+  if (e.request.cache === 'only-if-cached' && e.request.mode !== 'same-origin') return;
+
+  return fetch(e.request).then(res => {
+    if (!res.url) return res;
+    if (new URL(res.url).origin !== location.origin) return res;
+
+    return caches.open(VERSION).then(cache => {
+      cache.put(e.request, res.clone());
+      return res;
+    });
+  }).catch(err => console.error(e.request.url, err));
+}
+
+function handleNoCacheMatch(e) {
+  return fetchFromNetworkAndCache(e);
+}
+`;
+
+  fs.writeFileSync(path.join(DIST_DIR, 'sw.js'), sw);
+  console.log('Generated: sw.js');
+}
+
 // Copy static assets
 async function copyAssets() {
   const assets = [
@@ -241,12 +404,14 @@ async function copyAssets() {
     'img',
     'favicon.ico',
     'icon.png',
-    'manifest.webmanifest',
+    'tile.png',
+    'tile-wide.png',
     'robots.txt',
-    'sw.js',
     'browserconfig.xml',
     'humans.txt',
-    'lighthouserc.js'
+    'lighthouserc.js',
+    '.htaccess',
+    'netlify.toml'
   ];
   
   for (const asset of assets) {
@@ -293,6 +458,8 @@ async function build() {
   await generate404();
   await generateSitemap(articles);
   await generateRSS(articles);
+  await generateManifest(articles);
+  await generateServiceWorker(articles);
   await copyAssets();
   
   console.log('\nBuild complete!');
