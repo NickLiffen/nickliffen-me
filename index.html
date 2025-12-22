@@ -11,7 +11,7 @@
 </script>
   <meta charset="utf-8">
   <title>Nick Liffen's Blog | Technology, DevOps and Developer Blog</title>
-  <meta name="description" content="Nick Liffen's Blog | Focusing on DevOps, Developer Experince and all aspects of Technology">
+  <meta name="description" content="Nick Liffen's Blog | Focusing on DevOps, Developer Experience and all aspects of Technology">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Nick Liffen">
   <meta property="og:title" content="Nick Liffen's Blog | Technology, DevOps and Developer Blog">
@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@nickliffen">
   <meta name="twitter:creator" content="@nickliffen">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com;">
 
   <link rel="shortcut icon" href="./favicon.ico">
   <link rel="manifest" href="manifest.webmanifest" crossorigin="use-credentials">
@@ -35,12 +35,12 @@
   <meta name="theme-color" content="#fafafa">
   <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "Blog",
   "@id": "https://nickliffen.dev/",
   "name": "Nick Liffen's Blog | Technology, DevOps and Developer Blog",
   "headline": "Nick Liffen's Blog | Technology, DevOps and Developer Blog",
-  "description": "Nick Liffen's Blog | Focusing on DevOps, Developer Experince and all aspects of Technology",
+  "description": "Nick Liffen's Blog | Focusing on DevOps, Developer Experience and all aspects of Technology",
   "datePublished": "2021-01-30",
   "dateModified": "2021-01-31",
   "keywords": [
@@ -167,7 +167,7 @@
       <p>&copy; 2025. All rights reserved.</p>
     </div>
   </div>
-  <div class="content container">
+  <main id="main-content" class="content container">
     <h1 class="center post-title mb">Table of Contents</h1>
     <div class="center mb">
       <div class="margin"><a href="./articles/leadership-principles.html"> Leadership Principles: Guiding the Way to Success</a></div>
@@ -353,7 +353,7 @@
       <span class="pagination-item older">Older</span>
       <a href ="/articles/page/2.html"><span class="pagination-item newer">Newer</span></a>
     </div>
-    </div>
+    </main>
 <script>
 if ('serviceWorker' in navigator) {
  navigator.serviceWorker.register('/sw.js').then(function() {
