@@ -1,4 +1,4 @@
-var VERSION = '7';
+var VERSION = '8';
 
 this.addEventListener('install', function(e) {
   e.waitUntil(caches.open(VERSION).then(cache => {
@@ -9,13 +9,17 @@ this.addEventListener('install', function(e) {
       '/404.html',
       '/css/hyde.css',
       '/css/poole.css',
+      '/articles/leadership-principles.html',
+      '/articles/why-advanced-security.html',
+      '/articles/developer-evolution.html',
+      '/articles/step-functions.html',
+      '/articles/innersourcing.html',
+      '/articles/centralised-vs-decentralised-devops.html',
       '/articles/review-ghas-code-scanning-enterprise.html',
       '/articles/building-a-simple-website.html',
-      '/articles/centralised-vs-decentralised-devops.html',
-      '/articles/innersourcing.html',
-      '/articles/step-functions.html',
-      'articles/developer-evolution.html',
-      '/articles/page/2.html'
+      '/articles/page/2.html',
+      '/articles/page/3.html',
+      '/articles/page/4.html'
     ]);
   }))
 });

@@ -13,7 +13,7 @@ keywords:
   - InnerSourcing
   - Success
   - Story
-image: "https://nickliffen.dev/img/innersourcing.jpg"
+image: "https://nickliffen.dev/img/innersourcing.png"
 sections:
   - Context
   - Advantages

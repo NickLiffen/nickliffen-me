@@ -178,7 +178,4 @@ async function validate() {
 validate().catch(err => {
   console.error('Validation error:', err);
   process.exit(1);
-});validate().catch(err => {
-  console.error('Validation error:', err);
-  process.exit(1);
 });

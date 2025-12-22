@@ -1,8 +1,8 @@
 ---
 slug: "review-ghas-code-scanning-enterprise"
-title: "Nick Liffen Blog | Review of GitHub Code Scanning | Blog Post"
+title: "Nick Liffen's Blog | Review of GitHub Code Scanning | Blog Post"
 headline: "Review of GitHub Advanced Security Code Scanning in an Enterprise (Part 1)"
-description: "Nick Liffen Blog | Review of GitHub Advanced Security Code Scanning in an Enterprise | Blog Post"
+description: "Nick Liffen's Blog | Review of GitHub Advanced Security Code Scanning in an Enterprise | Blog Post"
 date: "2021-01-30"
 modified: "2021-02-01"
 keywords:
@@ -11,7 +11,7 @@ keywords:
   - Code Scanning
   - Enterprise
   - Nick Liffen
-image: "https://nickliffen.me/img/ghas.jpg"
+image: "https://nickliffen.dev/img/ghas.jpg"
 sections:
   - Context
   - What's Good
