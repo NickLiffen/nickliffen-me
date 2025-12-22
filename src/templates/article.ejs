@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<%- include('partials/_head', { 
+  title, 
+  description, 
+  ogTitle: title,
+  canonicalUrl, 
+  ogImage: image,
+  keywords,
+  hasYouTube,
+  pageType: 'article'
+}) %>
+<%- include('partials/_structured-data-article', {
+  canonicalUrl,
+  title,
+  headline,
+  description,
+  image,
+  datePublished,
+  dateModified,
+  keywords,
+  sections,
+  articleBody
+}) %>
+</head>
+
+<body>
+<%- include('partials/_skip-link') %>
+<%- include('partials/_sidebar') %>
+
+  <main id="main-content" class="content container">
+    <div class ="mb">
+      <a href="/" class="previous round font-bold">&#8249; Back to Home</a>
+    </div>
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li><a href="./<%= slug %>.html"><%= headline %></a></li>
+    </ul>
+    <div class="posts">
+<%- include('partials/_article-content', {
+  headline,
+  formattedDate,
+  content
+}) %>
+    </div>
+    <div class ="mb">
+      <a href="/" class="previous round font-bold">&#8249; Back to Home</a>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<%- include('partials/_head', { 
+  title: "Nick Liffen's Blog | Technology, DevOps and Dev Blog | Page " + pageNumber, 
+  description: "Nick Liffen's Blog | Focusing on DevOps, Developer Experience and all aspects of Technology", 
+  ogTitle: "Nick Liffen's Blog | Technology, DevOps and Dev Blog | Page " + pageNumber,
+  canonicalUrl: 'https://nickliffen.dev/articles/page/' + pageNumber + '.html', 
+  ogImage: 'https://nickliffen.dev/',
+  keywords: ['Nick', 'Liffen', 'JavaScript', 'Blog'],
+  hasYouTube: hasYouTube,
+  pageType: 'pagination'
+}) %>
+<%- include('partials/_structured-data-blog', {
+  canonicalUrl: 'https://nickliffen.dev/articles/page/' + pageNumber + '.html',
+  title: "Nick Liffen's Blog | Technology, DevOps and Dev Blog | Page " + pageNumber,
+  description: "Nick Liffen's Blog | Focusing on DevOps, Developer Experience and all aspects of Technology",
+  datePublished: '2021-01-30',
+  dateModified: '2021-02-14',
+  keywords: ['Blog', 'Technology', 'DevOps', 'Nick', 'Liffen', 'Developer', 'GitHub'],
+  blogPosts: displayArticles
+}) %>
+</head>
+
+<body>
+<%- include('partials/_skip-link') %>
+<%- include('partials/_sidebar') %>
+
+  <main id="main-content" class="content container">
+<%- include('partials/_toc', { allArticles }) %>
+    <div class="posts">
+<% displayArticles.forEach((article, index) => { %>
+<%- include('partials/_article-content', {
+  headline: article.headline,
+  formattedDate: article.formattedDate,
+  content: article.content
+}) %>
+<% if (index < displayArticles.length - 1) { %>
+      <hr class="rounded">
+<% } %>
+<% }); %>
+    </div>
+    <div class="pagination">
+<% if (pageNumber === 2) { %>
+      <a href ="/"><span class="pagination-item older">Older</span></a>
+<% } else { %>
+      <a href ="/articles/page/<%= pageNumber - 1 %>.html"><span class="pagination-item older">Older</span></a>
+<% } %>
+<% if (hasNextPage) { %>
+      <a href ="/articles/page/<%= pageNumber + 1 %>.html"><span class="pagination-item newer">Newer</span></a>
+<% } else { %>
+      <span class="pagination-item newer">Newer</span>
+<% } %>
+    </div>
+    </main>
+</body>
+
+</html>

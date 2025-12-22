@@ -1,0 +1,34 @@
+{
+  "name": "nickliffen-me",
+  "version": "1.0.0",
+  "description": "Nick Liffen's personal blog - static site generator",
+  "main": "scripts/build.js",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:dev": "NODE_ENV=development node scripts/build.js",
+    "validate": "node scripts/validate.js",
+    "new-article": "node scripts/new-article.js",
+    "dev": "npm run build:dev && npx serve dist",
+    "clean": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NickLiffen/nickliffen-me.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NickLiffen/nickliffen-me/issues"
+  },
+  "homepage": "https://github.com/NickLiffen/nickliffen-me#readme",
+  "dependencies": {
+    "diff": "^8.0.2",
+    "ejs": "^3.1.10",
+    "glob": "^13.0.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.1",
+    "mkdirp": "^3.0.1"
+  }
+}

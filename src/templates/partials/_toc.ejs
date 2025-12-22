@@ -1,0 +1,7 @@
+    <h1 class="center post-title mb">Table of Contents</h1>
+    <div class="center mb">
+<% allArticles.forEach(article => { %>
+      <div class="margin"><a href="<%= article.tocLink %>"><%= article.headline %></a></div>
+<% }); %>
+    </div>
+    <hr class="rounded">

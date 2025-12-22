@@ -1,0 +1,25 @@
+  <script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "BlogPosting",
+	"@id": "<%- canonicalUrl %>",
+	"name": "<%- title %>",
+	"headline": "<%- headline %>",
+	"description": "<%- description %>",
+	"image": "<%- image %>",
+	"datePublished": "<%- datePublished %>",
+	"dateModified": "<%- dateModified %>",
+	"keywords": <%- JSON.stringify(keywords) %>,
+	"articleSection": <%- JSON.stringify(sections) %>,
+	"articleBody": "<%- articleBody.replace(/"/g, '\\"').replace(/\n/g, ' ').substring(0, 500) %>",
+	"url": "<%- canonicalUrl %>",
+	"author": {
+		"@type": "Person",
+		"name": "Nick Liffen"
+	},
+	"publisher": {
+		"@type": "Person",
+		"name": "Nick Liffen"
+	}
+}
+</script>
