@@ -95,7 +95,10 @@ export function main(): void {
   }
 }
 
-// Run if executed directly
-if (require.main === module) {
+// Run if executed directly (not imported as a module)
+const isDirectExecution = process.argv[1]?.includes('new-article');
+const isTestEnvironment = process.env.NODE_ENV === 'test' || process.env.VITEST;
+
+if (isDirectExecution && !isTestEnvironment) {
   main();
 }
