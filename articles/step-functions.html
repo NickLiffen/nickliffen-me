@@ -60,12 +60,14 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;" onfocus="this.style.left='0';this.style.width='auto';this.style.height='auto';" onblur="this.style.left='-10000px';this.style.width='1px';this.style.height='1px';">Skip to main content</a>
   <div class="sidebar">
     <div class="container sidebar-sticky">
       <div class="sidebar-about">
         <h1>Nick Liffen</h1>
         <p class="lead">This is where I share my experiences</p>
       </div>
+      <nav aria-label="Main navigation">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-item active">
           <a href="/">Home</a>
@@ -74,11 +76,12 @@
           <a href="https://github.com/nickliffen">GitHub Profile</a>
         </li>
       </ul>
+      </nav>
       <p>&copy; 2025. All rights reserved.</p>
     </div>
   </div>
 
-  <div class="content container">
+  <main id="main-content" class="content container">
     <div class ="mb">
       <a href="/" class="previous round font-bold">&#8249; Back to Home</a>
     </div>
@@ -93,7 +96,7 @@
         </h1>
         <span class="post-date">29th Aug 2021</span>
         <h2 id="introduction" class="mb">Introduction:</h2>
-        <p>The more I have been working on AWS, the more I understanding the importance of well-architected solutions. Today, I would like to focus on the value of <a href="https://aws.amazon.com/step-functions/?step-functions.sort-by=item.additionalFields.postDateTime&step-functions.sort-order=desc" target="_blank" rel="noreferrer">AWS Step Functions</a>. What are Step Functions? The offical description is: </p> 
+        <p>The more I have been working on AWS, the more I understanding the importance of well-architected solutions. Today, I would like to focus on the value of <a href="https://aws.amazon.com/step-functions/?step-functions.sort-by=item.additionalFields.postDateTime&step-functions.sort-order=desc" target="_blank" rel="noopener noreferrer">AWS Step Functions</a>. What are Step Functions? The offical description is: </p> 
         <p><em>
           AWS Step Functions is a low-code visual workflow service used to orchestrate AWS services, automate business processes, and build serverless applications. Workflows manage failures, retries, parallelization, service integrations, and observability so developers can focus on higher-value business logic.
         </em></p>
@@ -131,22 +134,22 @@
         <p>Both have similar architectures but differ slightly in data communication; let's discuss the detail ... </p>
         <p>Let's talk about the pros:</p>
         <ul>
-            <li><strong>Less Code:</strong> We don't have to write a custom lambda to enter data into the DB. Step functions have a native integration with DynamoDB, meaning we don't have to write code to do something preexisting. More information on integrations can be found here: <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-service-integrations.html" target="_blank" rel="noreferrer">Using AWS Step Functions with other services</a>.</li>
-            <li><strong>Less AWS Resource(s):</strong> No need for any queues. We use the state machine to send data to the following lambda in the chain. More information on how to send data within step functions can be found here: <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-state-machine-data.html" target="_blank" rel="noreferrer">State Machine Data</a></li>
-            <li><strong>Process Overview:</strong> Easy to see the whole process in action. Step Functions easy allow you to see the data that is processing. To see more information on seeing the overall process, check out this link: <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-input-output-filtering.html" target="_blank" rel="noreferrer">Input and Output Processing in Step Functions</a></li>
-            <li><strong>Easy to find problems:</strong> Don't you dislike having to crawl through cloudwatch events to find errors logged out from a lambdas console? Using AWS Step Functions allows you to quickly find errors via the Step Functions GUI as you can crawl through the state machines events to find problems. I find this link really useful for more information on debugging: <a href="https://docs.aws.amazon.com/step-functions/latest/dg/monitoring-logging.html" target="_blank" rel="noreferrer">Monitoring &amp; Logging</a></li>
-            <li><strong>Built in retries:</strong> Sometimes lambdas error and writes into DynamoDB's fail. Although they are rare, if not handled correctly, they could cause downstream dilemmas. Step Functions have inbuilt retry capabilities that allow you to retry on specific errors. Meaning you can only retry on specific event errors that you would like to retry on. More information on this can be found here: <a href="https://aws.amazon.com/blogs/developer/handling-errors-retries-and-adding-alerting-to-step-function-state-machine-executions/" target="_blank" rel="noreferrer">Monitoring &amp; Logging</a></li>
+            <li><strong>Less Code:</strong> We don't have to write a custom lambda to enter data into the DB. Step functions have a native integration with DynamoDB, meaning we don't have to write code to do something preexisting. More information on integrations can be found here: <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-service-integrations.html" target="_blank" rel="noopener noreferrer">Using AWS Step Functions with other services</a>.</li>
+            <li><strong>Less AWS Resource(s):</strong> No need for any queues. We use the state machine to send data to the following lambda in the chain. More information on how to send data within step functions can be found here: <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-state-machine-data.html" target="_blank" rel="noopener noreferrer">State Machine Data</a></li>
+            <li><strong>Process Overview:</strong> Easy to see the whole process in action. Step Functions easy allow you to see the data that is processing. To see more information on seeing the overall process, check out this link: <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-input-output-filtering.html" target="_blank" rel="noopener noreferrer">Input and Output Processing in Step Functions</a></li>
+            <li><strong>Easy to find problems:</strong> Don't you dislike having to crawl through cloudwatch events to find errors logged out from a lambdas console? Using AWS Step Functions allows you to quickly find errors via the Step Functions GUI as you can crawl through the state machines events to find problems. I find this link really useful for more information on debugging: <a href="https://docs.aws.amazon.com/step-functions/latest/dg/monitoring-logging.html" target="_blank" rel="noopener noreferrer">Monitoring &amp; Logging</a></li>
+            <li><strong>Built in retries:</strong> Sometimes lambdas error and writes into DynamoDB's fail. Although they are rare, if not handled correctly, they could cause downstream dilemmas. Step Functions have inbuilt retry capabilities that allow you to retry on specific errors. Meaning you can only retry on specific event errors that you would like to retry on. More information on this can be found here: <a href="https://aws.amazon.com/blogs/developer/handling-errors-retries-and-adding-alerting-to-step-function-state-machine-executions/" target="_blank" rel="noopener noreferrer">Monitoring &amp; Logging</a></li>
         </ul>
         <p>Let's talk about the cons:</p>
         <ul>
-            <li><strong>Con One:</strong> Step Functions has some pretty strict and small <a href="https://docs.aws.amazon.com/step-functions/latest/dg/limits-overview.html" target="_blank" rel="noreferrer">limits</a> (I actually think this article is a nice summary of the limits: <a href="https://docs.aws.amazon.com/step-functions/latest/dg/monitoring-logging.html" target="_blank" rel="noreferrer">Think Twice Before Using Step Functions — Check the AWS Serverless Service Quotas</a>). If you are processing lots of data, you would need to split your step functions into multiple state machines. One idea on how to architect your solution around this limit is to create a parent/child sate machine. E.G, a child state machine could process a single data entry at a time, which invokes from a parent state machine that loops through the data, but doesn't directly <strong>do</strong> any of the processing, so it stays within limits. </li>
+            <li><strong>Con One:</strong> Step Functions has some pretty strict and small <a href="https://docs.aws.amazon.com/step-functions/latest/dg/limits-overview.html" target="_blank" rel="noopener noreferrer">limits</a> (I actually think this article is a nice summary of the limits: <a href="https://docs.aws.amazon.com/step-functions/latest/dg/monitoring-logging.html" target="_blank" rel="noopener noreferrer">Think Twice Before Using Step Functions — Check the AWS Serverless Service Quotas</a>). If you are processing lots of data, you would need to split your step functions into multiple state machines. One idea on how to architect your solution around this limit is to create a parent/child sate machine. E.G, a child state machine could process a single data entry at a time, which invokes from a parent state machine that loops through the data, but doesn't directly <strong>do</strong> any of the processing, so it stays within limits. </li>
             <li><strong>Con Two:</strong> If another system needs to reuse a specific function, there is no queue in front of it, making it harder to call. Making the architecture not amazingly extensible. Yes, you can still use AWS SQS with step functions, but unless you think it's needed externally to this use case, it likely isn't required. </li>
         </ul>
         <p> Overall, I genuinely believe this architecture is cleaner and runs a more robust process than the previous design. </p>
         <h2 id="sf-detail" class="mb">Going into detail about Step Functions</h2>
         <p>I would like to focus on two core parts of step functions that stand out to me:</p>
         <h3>Feature One: Built in looping through arrays</h3>
-        <p>Let's say you have a data set of 1,000 users. You <i>could</i> send all 1,000 users to the lambda via an SQS Queue (but you can only send ten records at a time, remember), loop through all users, process them accordingly and send them back to the state machine. Or, you could use the inbuilt <a href="https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html" target="_blank" rel="noreferrer">map</a> feature within Step Functions that will map through the user's array at the sate machine level and send one user record at a time to the lambda for processing. Why would you do this? It allows you to write less code within your lambda, fewer loops, hopefully, quicker processing. In my opinion, it also makes your code cleaner. </p>
+        <p>Let's say you have a data set of 1,000 users. You <i>could</i> send all 1,000 users to the lambda via an SQS Queue (but you can only send ten records at a time, remember), loop through all users, process them accordingly and send them back to the state machine. Or, you could use the inbuilt <a href="https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html" target="_blank" rel="noopener noreferrer">map</a> feature within Step Functions that will map through the user's array at the sate machine level and send one user record at a time to the lambda for processing. Why would you do this? It allows you to write less code within your lambda, fewer loops, hopefully, quicker processing. In my opinion, it also makes your code cleaner. </p>
         <p>It looks a little like this within the state machine definition file:</p>
         <pre>
 Invoke Worker State Machine:
@@ -157,7 +160,7 @@ Parameters:
     UserDetails.$: "$$.Map.Item.Value"
         </pre>
         <h3>Feature Two: AWS Step Functions can call AWS Step Functions</h3>
-        <p>As mentioned above, AWS Step Functions have some pretty strict (and small) limits. Meaning you have to architect your solutions correctly. An elegant aspect of Step Functions is they can call other <a href="https://docs.aws.amazon.com/step-functions/latest/dg/sample-start-workflow.html" target="_blank" rel="noreferrer">step functions</a>. Meaning if you have been processing lots of data and are reaching limits, you can split up your Step Function into one parent step function, and then a child step function where you send one data record at a time to be processed individually from the parent.</p>
+        <p>As mentioned above, AWS Step Functions have some pretty strict (and small) limits. Meaning you have to architect your solutions correctly. An elegant aspect of Step Functions is they can call other <a href="https://docs.aws.amazon.com/step-functions/latest/dg/sample-start-workflow.html" target="_blank" rel="noopener noreferrer">step functions</a>. Meaning if you have been processing lots of data and are reaching limits, you can split up your Step Function into one parent step function, and then a child step function where you send one data record at a time to be processed individually from the parent.</p>
         <p>It looks a little like this within the state machine definition file:</p>
         <pre>
 Iterator:
@@ -173,7 +176,7 @@ States:
         AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$: "$$.Ex.Id"
         </pre>
         <p>Taking the above two code snippets, you are looping through the user's array of objects and sending one user at a time. Let's say you have 1,000 users; you are spinning up 1,000 child step functions and processing one user at a time. </p>
-        <p> These are just two features that I think make Step Functions a great resource to use when co-ordinating a multi-lambda solution. However, there are so many more, check out the docs <a href="https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html" target="_blank" rel="noreferrer">here</a> for more information.</p>
+        <p> These are just two features that I think make Step Functions a great resource to use when co-ordinating a multi-lambda solution. However, there are so many more, check out the docs <a href="https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html" target="_blank" rel="noopener noreferrer">here</a> for more information.</p>
         <h2 id="conclusion" class="mb">Conclusion</h2>
         <p>I have found Step Functions to be a great resource when working across lambdas. They give you more confidence in your design and allow you to write less code, and in most cases, less code is better code, right? </p>
     </div>
@@ -181,6 +184,6 @@ States:
     <div class ="mb">
       <a href="/" class="previous round font-bold">&#8249; Back to Home</a>
     </div>
-  </div>
+  </main>
 </body>
 </html>

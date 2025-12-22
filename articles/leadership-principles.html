@@ -60,12 +60,14 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;" onfocus="this.style.left='0';this.style.width='auto';this.style.height='auto';" onblur="this.style.left='-10000px';this.style.width='1px';this.style.height='1px';">Skip to main content</a>
   <div class="sidebar">
     <div class="container sidebar-sticky">
       <div class="sidebar-about">
         <h1>Nick Liffen</h1>
         <p class="lead">This is where I share my experiences</p>
       </div>
+      <nav aria-label="Main navigation">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-item active">
           <a href="/">Home</a>
@@ -74,11 +76,12 @@
           <a href="https://github.com/nickliffen">GitHub Profile</a>
         </li>
       </ul>
+      </nav>
       <p>&copy; 2025. All rights reserved.</p>
     </div>
   </div>
 
-  <div class="content container">
+  <main id="main-content" class="content container">
     <div class ="mb">
       <a href="/" class="previous round font-bold">&#8249; Back to Home</a>
     </div>
@@ -133,9 +136,9 @@
 
     </div>
     </div>
-    <div class ="mb">
-      <a href="/" class="previous round font-bold">&#8249; Back to Home</a>
+    <div class =\"mb\">
+      <a href=\"/\" class=\"previous round font-bold\">&#8249; Back to Home</a>
     </div>
-  </div>
+  </main>
 </body>
 </html>

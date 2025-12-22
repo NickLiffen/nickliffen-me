@@ -5,9 +5,16 @@
   <atom:link href="https://nickliffen.dev/rss.xml" rel="self" type="application/rss+xml" />
   <title>Nick Liffen's Blog | Technology, DevOps and Developer Blog</title>
   <link>https://nickliffen.dev</link>
-  <description>Nick Liffen's Blog | Focusing on DevOps, Developer Experince and all aspects of Technology</description>
+  <description>Nick Liffen's Blog | Focusing on DevOps, Developer Experience and all aspects of Technology</description>
   <category>Web Development</category>
   <language>en-GB</language>
+  <item>
+    <title>Nick Liffen's Blog | Leadership Principles: Guiding the Way to Success | Blog Post</title>
+    <link>https://nickliffen.dev/articles/leadership-principles.html</link>
+    <description>Nick Liffen's Blog | Leadership Principles: Guiding the Way to Success | Blog Post</description>
+    <guid>https://nickliffen.dev/articles/leadership-principles.html</guid>
+    <pubDate>Tue, 04 Jul 2023 18:00:00 GMT</pubDate>
+  </item>
   <item>
     <title>Nick Liffen's Blog | Why Advanced Security? | Blog Post</title>
     <link>https://nickliffen.me/articles/why-advanced-security.html</link>
