@@ -1,0 +1,106 @@
+name: Build and Validate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build site
+        run: npm run build
+      
+      - name: Validate output
+        run: npm run validate
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7
+
+  lighthouse:
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      
+      - name: Run Lighthouse CI
+        run: |
+          npm install -g @lhci/cli
+          lhci autorun --config=lighthouserc.js
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      
+      - name: Comment Lighthouse scores on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            // Find the manifest file
+            const manifestPath = '.lighthouseci/manifest.json';
+            if (!fs.existsSync(manifestPath)) {
+              console.log('No Lighthouse manifest found');
+              return;
+            }
+            
+            const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+            const results = manifest.map(entry => {
+              const summary = JSON.parse(fs.readFileSync(entry.jsonPath, 'utf8')).categories;
+              return {
+                url: entry.url,
+                performance: Math.round(summary.performance.score * 100),
+                accessibility: Math.round(summary.accessibility.score * 100),
+                bestPractices: Math.round(summary['best-practices'].score * 100),
+                seo: Math.round(summary.seo.score * 100)
+              };
+            });
+            
+            let comment = '## Lighthouse Results 🚀\n\n';
+            comment += '| URL | Performance | Accessibility | Best Practices | SEO |\n';
+            comment += '|-----|-------------|---------------|----------------|-----|\n';
+            
+            for (const r of results) {
+              const url = r.url.replace('http://localhost:8080', '');
+              comment += `| ${url || '/'} | ${r.performance} | ${r.accessibility} | ${r.bestPractices} | ${r.seo} |\n`;
+            }
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

@@ -1,0 +1,44 @@
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": "<%= canonicalUrl %>",
+  "name": "<%= title %>",
+  "headline": "<%= title %>",
+  "description": "<%= description %>",
+  "datePublished": "<%= datePublished %>",
+  "dateModified": "<%= dateModified %>",
+  "keywords": <%- JSON.stringify(keywords) %>,
+  "url": "<%= canonicalUrl %>",
+  "author": {
+    "@type": "Person",
+    "name": "Nick Liffen"
+  },
+  "blogPosts": [
+<% blogPosts.forEach((post, index) => { %>
+    {
+      "@type": "BlogPosting",
+      "@id": "<%= post.canonicalUrl %>",
+      "name": "<%= post.title %>",
+      "headline": "<%= post.headline %>",
+      "description": "<%= post.description %>",
+      "image": "<%= post.image %>",
+      "datePublished": "<%= post.datePublished %>",
+      "dateModified": "<%= post.dateModified %>",
+      "keywords": <%- JSON.stringify(post.keywords) %>,
+      "articleSection": <%- JSON.stringify(post.sections) %>,
+      "articleBody": "...",
+      "url": "<%= post.canonicalUrl %>",
+      "author": {
+        "@type": "Person",
+        "name": "Nick Liffen"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Nick Liffen"
+      }
+    }<%= index < blogPosts.length - 1 ? ',' : '' %>
+<% }); %>
+  ]
+}
+</script>

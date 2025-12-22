@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<%- include('partials/_head', { 
+  title: "Nick Liffen's Blog | Technology, DevOps and Developer Blog", 
+  description: "Nick Liffen's Blog | Focusing on DevOps, Developer Experience and all aspects of Technology", 
+  ogTitle: "Nick Liffen's Blog | Technology, DevOps and Developer Blog",
+  canonicalUrl: 'https://nickliffen.dev/', 
+  ogImage: 'https://nickliffen.dev/',
+  keywords: ['Nick', 'Liffen', 'JavaScript', 'Blog'],
+  hasYouTube: false,
+  pageType: 'index'
+}) %>
+<%- include('partials/_structured-data-blog', {
+  canonicalUrl: 'https://nickliffen.dev/',
+  title: "Nick Liffen's Blog | Technology, DevOps and Developer Blog",
+  description: "Nick Liffen's Blog | Focusing on DevOps, Developer Experience and all aspects of Technology",
+  datePublished: '2021-01-30',
+  dateModified: '2021-01-31',
+  keywords: ['Blog', 'Technology', 'DevOps', 'Nick', 'Liffen', 'Developer', 'GitHub'],
+  blogPosts: displayArticles
+}) %>
+</head>
+
+<body>
+<%- include('partials/_skip-link') %>
+<%- include('partials/_sidebar') %>
+
+  <main id="main-content" class="content container">
+<%- include('partials/_toc', { allArticles }) %>
+    <div class="posts">
+<% displayArticles.forEach((article, index) => { %>
+<%- include('partials/_article-content', {
+  headline: article.headline,
+  formattedDate: article.formattedDate,
+  content: article.content
+}) %>
+<% if (index < displayArticles.length - 1) { %>
+      <hr class="rounded">
+<% } %>
+<% }); %>
+    </div>
+    <div class="pagination">
+      <span class="pagination-item older">Older</span>
+      <a href ="/articles/page/2.html"><span class="pagination-item newer">Newer</span></a>
+    </div>
+    </main>
+<script>
+if ('serviceWorker' in navigator) {
+ navigator.serviceWorker.register('/sw.js').then(function() {}).catch(function(e) {
+   console.error('service worker not working.', e);
+   throw e;
+ });
+}
+</script>
+</body>
+
+</html>

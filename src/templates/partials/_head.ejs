@@ -1,0 +1,50 @@
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZG0XYVVEZW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZG0XYVVEZW');
+</script>
+  <meta charset="utf-8">
+  <title><%- title %></title>
+  <meta name="description" content="<%- description %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Nick Liffen">
+  <meta property="og:title" content="<%- ogTitle || title %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%- canonicalUrl %>">
+  <meta property="og:image" content="<%- ogImage || 'https://nickliffen.dev/' %>">
+  <meta name="keywords" content="<%- keywords.join(', ') %>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@nickliffen">
+  <meta name="twitter:creator" content="@nickliffen">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.doubleclick.net;<% if (hasYouTube) { %> frame-src https://www.youtube.com;<% } %>">
+
+<% if (pageType === 'article') { %>
+  <link rel="canonical" href="<%= canonicalUrl %>">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="manifest" href="../manifest.webmanifest" crossorigin="use-credentials">
+  <link rel="apple-touch-icon" href="../icon.png">
+
+  <link rel="stylesheet" type="text/css" href="../css/poole.css">
+  <link rel="stylesheet" type="text/css" href="../css/hyde.css">
+<% } else if (pageType === 'pagination') { %>
+  <link rel="canonical" href="<%= canonicalUrl %>">
+  <link rel="shortcut icon" href="../../favicon.ico">
+  <link rel="manifest" href="../../manifest.webmanifest" crossorigin="use-credentials">
+  <link rel="apple-touch-icon" href="../../icon.png">
+  <link rel="alternate" type="application/rss+xml" title="Subscribe to What's New" href="https://nickliffen.dev/rss.xml" />
+  <link rel="stylesheet" type="text/css" href="../../css/poole.css">
+  <link rel="stylesheet" type="text/css" href="../../css/hyde.css">
+<% } else { %>
+  <link rel="shortcut icon" href="./favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest" crossorigin="use-credentials">
+  <link rel="apple-touch-icon" href="./icon.png">
+  <link rel="canonical" href="<%= canonicalUrl %>">
+  <link rel="alternate" type="application/rss+xml" title="Subscribe to What's New" href="https://nickliffen.dev/rss.xml" />
+  <link rel="stylesheet" type="text/css" href="./css/poole.css">
+  <link rel="stylesheet" type="text/css" href="./css/hyde.css">
+<% } %>
+
+  <meta name="theme-color" content="#fafafa">
