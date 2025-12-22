@@ -2,18 +2,21 @@
   "name": "nickliffen-me",
   "version": "1.0.0",
   "description": "Nick Liffen's personal blog - static site generator",
-  "main": "scripts/build.js",
+  "main": "scripts/build.ts",
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
-    "build": "node scripts/build.js",
-    "build:dev": "NODE_ENV=development node scripts/build.js",
+    "build": "tsx scripts/build.ts",
+    "build:dev": "NODE_ENV=development tsx scripts/build.ts",
     "validate": "node scripts/validate.js",
-    "new-article": "node scripts/new-article.js",
+    "new-article": "tsx scripts/new-article.ts",
     "dev": "npm run build:dev && npx serve dist",
     "clean": "rm -rf dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "typecheck": "tsc --noEmit -p scripts/tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "repository": {
     "type": "git",
@@ -32,5 +35,13 @@
     "gray-matter": "^4.0.3",
     "marked": "^17.0.1",
     "mkdirp": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/node": "^25.0.3",
+    "@vitest/coverage-v8": "^4.0.16",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.16"
   }
 }
