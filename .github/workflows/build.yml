@@ -23,11 +23,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
+      - name: Run TypeScript check
+        run: npm run typecheck
+      
+      - name: Run tests with coverage
+        run: npm run test:coverage
+      
       - name: Build site
         run: npm run build
       
       - name: Validate output
         run: npm run validate
+        
+      - name: Report coverage on PR
+        if: github.event_name == 'pull_request'
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          json-summary-path: ./coverage/coverage-summary.json
+          json-final-path: ./coverage/coverage-final.json
       
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
