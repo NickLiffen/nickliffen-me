@@ -19,8 +19,7 @@
 	"scope": ".",
 	"background_color": "#fafafa",
 	"theme_color": "#fafafa",
-	"display": "fullscreen",
-	"prefer_related_applications": false,
+	"display": "standalone",
 	"categories": [
 	  "education",
 	  "security"
@@ -41,27 +40,27 @@
 	  },
 	  {
 		"name": "Nick Liffen's Blog | Centralised vs Decentralised DevOps | Blog Post",
-		"url": "articles/centralised-vs-decentralised-devops.html",
+		"url": "/articles/centralised-vs-decentralised-devops.html",
 		"short_name": "Centralised vs Decentralised DevOps"
 	  },
 	  {
 		"name": "Nick Liffen's Blog | An InnerSourcing Approach within an Enterprise | Blog Post",
-		"url": "articles/innersourcing.html",
+		"url": "/articles/innersourcing.html",
 		"short_name": "An InnerSourcing Approach within an Enterprise"
 	  },
 	  {
 		"name": "Nick Liffen's Blog | Coordinating a multi-lambda software product | Blog Post",
-		"url": "articles/step-functions.html",
+		"url": "/articles/step-functions.html",
 		"short_name": "Coordinating a multi-lambda software product"
 	  },
 	  {
 		"name": "Nick Liffen's Blog | The Importance of Developer Experience | Blog Post",
-		"url": "articles/developer-evolution.html",
+		"url": "/articles/developer-evolution.html",
 		"short_name": "The Importance of Developer Experience"
 	  },
 	  {
 		"name": "Nick Liffen's Blog | Why Advanced Security? | Blog Post",
-		"url": "articles/why-advanced-security.html",
+		"url": "/articles/why-advanced-security.html",
 		"short_name": "Why Advanced Security?"
 	  }
 	]
