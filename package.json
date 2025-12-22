@@ -2,7 +2,7 @@
   "name": "nickliffen-me",
   "version": "1.0.0",
   "description": "Nick Liffen's personal blog - static site generator",
-  "main": "scripts/build.ts",
+  "main": "scripts/build.js",
   "engines": {
     "node": ">=22.0.0"
   },
