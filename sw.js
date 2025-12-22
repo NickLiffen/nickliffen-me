@@ -1,4 +1,4 @@
-var VERSION = '6';
+var VERSION = '7';
 
 this.addEventListener('install', function(e) {
   e.waitUntil(caches.open(VERSION).then(cache => {
@@ -21,6 +21,17 @@ this.addEventListener('install', function(e) {
 });
 
 this.addEventListener('fetch', function(e) {
+  // Skip non-GET requests
+  if (e.request.method !== 'GET') return;
+  
+  // Skip requests with different modes that can cause redirect issues
+  if (e.request.mode === 'navigate') {
+    e.respondWith(
+      fetch(e.request).catch(() => caches.match('/index.html'))
+    );
+    return;
+  }
+
   var tryInCachesFirst = caches.open(VERSION).then(cache => {
     return cache.match(e.request).then(response => {
       if (!response) {
