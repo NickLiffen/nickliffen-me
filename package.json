@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/NickLiffen/nickliffen-me#readme",
   "dependencies": {
-    "diff": "^8.0.2",
     "ejs": "^3.1.10",
     "glob": "^13.0.0",
     "gray-matter": "^4.0.3",

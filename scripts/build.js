@@ -17,15 +17,15 @@ const DIST_DIR = path.join(ROOT_DIR, 'dist');
 const TEMPLATES_DIR = path.join(SRC_DIR, 'templates');
 const CONTENT_DIR = path.join(SRC_DIR, 'content', 'articles');
 
-// Helper: Format date as "4th July 2023" (uses abbreviated months except July)
+// Helper: Format date as "4th January 2023" (full month names for consistency)
 function formatDate(dateStr) {
   const date = new Date(dateStr);
   const day = date.getUTCDate();
   const monthIndex = date.getUTCMonth();
   const year = date.getUTCFullYear();
   
-  // Abbreviated months (July stays as July for consistency with original)
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  // Full month names for professional, consistent display
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const month = months[monthIndex];
   
   // Add ordinal suffix
@@ -42,25 +42,16 @@ function formatDate(dateStr) {
   return `${day}${suffix(day)} ${month} ${year}`;
 }
 
-// Helper: Format date as ISO 8601 for sitemap (uses fixed 12:07:28 time)
+// Helper: Format date as ISO 8601 for sitemap
 function formatDateISO(dateStr) {
   const date = new Date(dateStr);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}T12:07:28+00:00`;
+  return date.toISOString().split('.')[0] + '+00:00';
 }
 
-// Helper: Format date as RFC 822 for RSS (uses fixed 18:00:00 GMT time)
+// Helper: Format date as RFC 822 for RSS
 function formatDateRFC822(dateStr) {
   const date = new Date(dateStr);
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const dayName = days[date.getDay()];
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = months[date.getMonth()];
-  const year = date.getFullYear();
-  return `${dayName}, ${day} ${month} ${year} 18:00:00 GMT`;
+  return date.toUTCString();
 }
 
 // Read all article markdown files
