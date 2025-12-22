@@ -190,7 +190,7 @@
         </ul>
         <p> Now, as with any architecture, there are multiple ways to build out this example system. I will show two examples below and compare & contrast the pros and cons of each, mainly focusing on how to use multiple lambdas together and why AWS Step Functions are beneficial.  </p>
         <h2 id="sqs" class="mb">Model One - SQS:</h2>
-        <img src="./img/sqs.png" alt="AWS SQS Arch Design" style='height: 100%; width: 100%; object-fit: contain' loading="lazy">
+        <img src="../../img/sqs.png" alt="AWS SQS Arch Design" style='height: 100%; width: 100%; object-fit: contain' loading="lazy">
         <p>Let's walk through the above diagram. We have a GitHub App configured on two events (A, B). We use a GitHub App to remove the "human" element of the connection, along with some other goodies like an increase in API Requests. The GitHub App will send a payload to our API, but before it reached the API, we use AWS Route 53 for our custom DNS record, which then will proxy down to our AWS Cloudfront Distribution. </p>
         <p>Once the payload reaches the API, we will first use the direct integration between AWS HTTP API Gateways and AWS Lambda to first process the data. Then, to communicate between the rest of the lambdas, we use AWS SQS to traffic data between lambdas for processing. Finally, data ends up in the database where you could use a service like AWS AppSync or another API Gateway to fetch the data.  </p>
         <p>Let's talk about the pros:</p>
@@ -205,7 +205,7 @@
         </ul>
         <p> Overall, this isn't a bad architecture, it fits a use case, but could it be fine-tuned?</p>
         <h2 id="sf" class="mb">Model Two - Step Functions</h2>
-        <img src="./img/sf.png" alt="AWS Step Functions Arch Design" style='height: 100%; width: 100%; object-fit: contain' loading="lazy">
+        <img src="../../img/sf.png" alt="AWS Step Functions Arch Design" style='height: 100%; width: 100%; object-fit: contain' loading="lazy">
         <p>Both ingress patterns into AWS are the same. The main difference starts when you get past the AWS HTTP API Gateway and into the data processing. </p>
         <p>As this solution has multiple lambdas, we use AWS Step Functions to coordinate how they interact. So, when a payload reaches the HTTP API, we trigger the AWS Step function. Data is processed by each lambda and sent back to the state machine, where finally it inserts data into the DB and uses a custom AWS SNS Topic to send an email on success/error. </p>
         <p>Both have similar architectures but differ slightly in data communication; let's discuss the detail ... </p>
