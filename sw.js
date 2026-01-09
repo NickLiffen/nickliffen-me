@@ -17,6 +17,7 @@ this.addEventListener('install', function(e) {
       '/articles/centralised-vs-decentralised-devops.html',
       '/articles/review-ghas-code-scanning-enterprise.html',
       '/articles/building-a-simple-website.html',
+      '/articles/what-excites-me-in-2026.html',
       '/articles/page/2.html',
       '/articles/page/3.html',
       '/articles/page/4.html'
