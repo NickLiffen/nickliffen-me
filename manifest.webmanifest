@@ -62,6 +62,11 @@
 		"name": "Nick Liffen's Blog | Why Advanced Security? | Blog Post",
 		"url": "/articles/why-advanced-security.html",
 		"short_name": "Why Advanced Security?"
+	  },
+	  	  {
+		"name": "Nick Liffen's Blog | What am I most excited about going into 2026 when it come to AI in Software Development? | Blog Post",
+		"url": "/articles/what-excites-me-in-2026.html",
+		"short_name": "What am I most excited about going into 2026 when it come to AI in Software Development?"
 	  }
 	]
   }
