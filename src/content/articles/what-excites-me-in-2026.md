@@ -11,7 +11,7 @@ keywords:
   - AI
   - Copilot
   - Software Development
-image: "https://nickliffen.dev/img/ghas.jpg"
+image: "https://nickliffen.dev/img/laptop.jpg"
 sections:
   - Introduction
   - AI moves upstream. Planning and brainstorming become first class to writing software
